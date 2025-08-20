@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  nats:
+    image: nats:2
+    container_name: mr_nats
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
+  redis:
+    image: redis:7
+    container_name: mr_redis
+    ports:
+      - "6379:6379"
+
+  pg-auth:
+    image: postgres:16
+    container_name: mr_pg_auth
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: auth_db
+    ports:
+      - "5433:5432"
+
+  pg-catalog:
+    image: postgres:16
+    container_name: mr_pg_catalog
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: catalog_db
+    ports:
+      - "5434:5432"
+
+  pg-payments:
+    image: postgres:16
+    container_name: mr_pg_payments
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: payments_db
+    ports:
+      - "5435:5432"
